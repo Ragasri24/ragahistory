@@ -2,20 +2,20 @@
 #include <string>
 using namespace std;
 class Node {
-    friend class BrowserHis;
+    friend class BrowserHistory;
     private :
-    Node* next;
-    Node* prev;
     string url;
+    Node* prev;
+    Node* next;
     public :
     Node(const string& u) : url(u), prev(nullptr), next(nullptr) {}
 };
-class BrowserHis {
+class BrowserHistory {
     private:
-        Node* current;
         Node* head;
+        Node* current;
     public:
-        BrowserHis() {
+        BrowserHistory() {
             head = nullptr;
             current = nullptr;
         }
@@ -64,28 +64,8 @@ class BrowserHis {
             temp = temp->next;
         }
     }
-    ~BrowserHis() {
-        Node* temp = head;
-        while (temp) {
-            Node* toDelete = temp;
-            temp = temp->next;
-            delete toDelete;
-        }
-    }
-};
-int main() {
-    BrowserHis browser;
-    browser.visit("https://google.com");
-    browser.visit("https://openai.com");
-    browser.visit("https://github.com");
-    browser.back();
-    browser.back();
-    browser.forward();
-    browser.visit("https://cplusplus.com"); 
-    browser.showHistory();
-    return 0;
-}
-int historySize() const {
+
+    int historySize() {
     int count = 0;
     Node* temp = head;
     while (temp) {
@@ -96,14 +76,46 @@ int historySize() const {
 }
 void removeCurrentPage() {
     if (!current) return;
+
     if (current->prev)
         current->prev->next = current->next;
     else
-        head = current->next; 
+        head = current->next;  // Removing head
+
     if (current->next)
         current->next->prev = current->prev;
+
     Node* toDelete = current;
     current = current->next ? current->next : current->prev;
     delete toDelete;
+
     cout << "Current page removed.\n";
 }
+
+
+    ~BrowserHistory() {
+        Node* temp = head;
+        while (temp) {
+            Node* toDelete = temp;
+            temp = temp->next;
+            delete toDelete;
+        }
+    }
+};
+int main() {
+    BrowserHistory browser;
+    browser.visit("https://google.com");
+    browser.visit("https://openai.com");
+    browser.visit("https://github.com");
+    browser.back();
+    browser.back();
+    browser.forward();
+    browser.visit("https://cplusplus.com"); 
+    browser.showHistory();
+    cout << "History size: " << browser.historySize() << endl;
+    browser.removeCurrentPage();
+    browser.showHistory();
+
+    return 0;
+}
+
