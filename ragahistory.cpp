@@ -85,3 +85,29 @@ int main() {
     browser.showHistory();
     return 0;
 }
+int historySize() const {
+    int count = 0;
+    Node* temp = head;
+    while (temp) {
+        ++count;
+        temp = temp->next;
+    }
+    return count;
+}
+void removeCurrentPage() {
+    if (!current) return;
+
+    if (current->prev)
+        current->prev->next = current->next;
+    else
+        head = current->next;  // Removing head
+
+    if (current->next)
+        current->next->prev = current->prev;
+
+    Node* toDelete = current;
+    current = current->next ? current->next : current->prev;
+    delete toDelete;
+
+    cout << "Current page removed.\n";
+}
