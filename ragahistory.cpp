@@ -15,10 +15,9 @@ class BrowserHistory {
         Node* head;
         Node* current;
     public:
-        BrowserHistory() {
-            head = nullptr;
-            current = nullptr;
-        }
+       
+    BrowserHistory() : head(nullptr), current(nullptr) {}
+
     void visit(const string& url) {
         Node* newNode = new Node(url);
         if (current && current->next) {
