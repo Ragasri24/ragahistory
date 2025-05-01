@@ -125,6 +125,8 @@ int main() {
     cout << "History size: " << browser.historySize() << endl;
     browser.removeCurrentPage();
     browser.printHistory();
+    browser.clearHistory();
+    browser.printHistory();
 
     return 0;
 }
