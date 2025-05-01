@@ -4,16 +4,16 @@ using namespace std;
 class Node {
     friend class BrowserHis;
     private :
-    string url;
-    Node* prev;
     Node* next;
+    Node* prev;
+    string url;
     public :
     Node(const string& u) : url(u), prev(nullptr), next(nullptr) {}
 };
 class BrowserHis {
     private:
-        Node* head;
         Node* current;
+        Node* head;
     public:
         BrowserHis() {
             head = nullptr;
