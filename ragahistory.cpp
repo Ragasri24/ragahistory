@@ -96,18 +96,14 @@ int historySize() const {
 }
 void removeCurrentPage() {
     if (!current) return;
-
     if (current->prev)
         current->prev->next = current->next;
     else
-        head = current->next;  // Removing head
-
+        head = current->next; 
     if (current->next)
         current->next->prev = current->prev;
-
     Node* toDelete = current;
     current = current->next ? current->next : current->prev;
     delete toDelete;
-
     cout << "Current page removed.\n";
 }
