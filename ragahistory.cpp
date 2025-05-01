@@ -18,7 +18,7 @@ class BrowserHistory {
        
     BrowserHistory() : head(nullptr), current(nullptr) {}
 
-    void visit(const string& url) {
+    void visitPage(const string& url) {
         Node* newNode = new Node(url);
         if (current && current->next) {
             Node* temp = current->next;
@@ -55,7 +55,7 @@ class BrowserHistory {
             cout << "No forward page.\n";
         }
     }
-    void showHistory() const {
+    void printHistory() const {
         Node* temp = head;
         cout << "\nFull Browsing History:\n";
         while (temp) {
@@ -91,6 +91,17 @@ void removeCurrentPage() {
     cout << "Current page removed.\n";
 }
 
+void clearHistory() {
+    Node* temp = head;
+    while (temp) {
+        Node* toDelete = temp;
+        temp = temp->next;
+        delete toDelete;
+    }
+    head = nullptr;
+    current = nullptr;
+    cout << "Browsing history cleared.\n";
+}
 
     ~BrowserHistory() {
         Node* temp = head;
@@ -103,17 +114,17 @@ void removeCurrentPage() {
 };
 int main() {
     BrowserHistory browser;
-    browser.visit("https://google.com");
-    browser.visit("https://openai.com");
-    browser.visit("https://github.com");
+    browser.visitPage("https://google.com");
+    browser.visitPage("https://openai.com");
+    browser.visitPage("https://github.com");
     browser.back();
     browser.back();
     browser.forward();
-    browser.visit("https://cplusplus.com"); 
-    browser.showHistory();
+    browser.visitPage("https://cplusplus.com"); 
+    browser.printHistory();
     cout << "History size: " << browser.historySize() << endl;
     browser.removeCurrentPage();
-    browser.showHistory();
+    browser.printHistory();
 
     return 0;
 }
