@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 class Node {
-    friend class BrowserHistory;
+    friend class BrowserHis;
     private :
     string url;
     Node* prev;
@@ -10,12 +10,12 @@ class Node {
     public :
     Node(const string& u) : url(u), prev(nullptr), next(nullptr) {}
 };
-class BrowserHistory {
+class BrowserHis {
     private:
         Node* head;
         Node* current;
     public:
-        BrowserHistory() {
+        BrowserHis() {
             head = nullptr;
             current = nullptr;
         }
@@ -64,7 +64,7 @@ class BrowserHistory {
             temp = temp->next;
         }
     }
-    ~BrowserHistory() {
+    ~BrowserHis() {
         Node* temp = head;
         while (temp) {
             Node* toDelete = temp;
@@ -74,7 +74,7 @@ class BrowserHistory {
     }
 };
 int main() {
-    BrowserHistory browser;
+    BrowserHis browser;
     browser.visit("https://google.com");
     browser.visit("https://openai.com");
     browser.visit("https://github.com");
