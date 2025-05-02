@@ -122,17 +122,15 @@ int main() {
     browser.visitPage("https://google.com");
     browser.visitPage("https://openai.com");
     browser.visitPage("https://github.com");
-    browser.back();
-    browser.back();
-    browser.forward();
-    browser.visitPage("https://cplusplus.com"); 
+    browser.back(); browser.back(); browser.forward();
+    browser.visitPage("https://cplusplus.com");
     browser.printHistory();
     cout << "History size: " << browser.historySize() << endl;
     browser.removeCurrentPage();
     browser.printHistory();
     browser.clearHistory();
     browser.printHistory();
-
     return 0;
 }
+
 
