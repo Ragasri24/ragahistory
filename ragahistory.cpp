@@ -55,15 +55,20 @@ class BrowserHistory {
             cout << "No forward page.\n";
         }
     }
+
     void printHistory() const {
         Node* temp = head;
         cout << "\nFull Browsing History:\n";
         while (temp) {
-            cout << (temp == current ? "-> " : "   ") << temp->url << endl;
+            if (temp == current) {
+                cout << "-> " << temp->url << endl;
+            } else {
+                cout << "   " << temp->url << endl;
+            }
             temp = temp->next;
         }
     }
-
+    
     int historySize() {
     int count = 0;
     Node* temp = head;
