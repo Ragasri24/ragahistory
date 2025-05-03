@@ -19,16 +19,14 @@ class BrowserHistory {
     BrowserHistory() : head(nullptr), current(nullptr) {}
 
     void visitPage(const string& url) {
-        Node* newNode = new Node(url);
-        if (current && current->next) {
+        while (current && current->next) {
             Node* temp = current->next;
-            while (temp) {
-                Node* toDelete = temp;
-                temp = temp->next;
-                delete toDelete;
-            }
-            current->next = nullptr;
+            current->next = temp->next;
+            if (temp->next) temp->next->prev = current;
+            delete temp;
         }
+    
+        Node* newNode = new Node(url);
         if (current) {
             current->next = newNode;
             newNode->prev = current;
@@ -36,9 +34,10 @@ class BrowserHistory {
             head = newNode;
         }
         current = newNode;
-
+    
         cout << "Visited: " << url << endl;
     }
+    
     void back() {
         if (current && current->prev) {
             current = current->prev;
