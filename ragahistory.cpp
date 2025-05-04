@@ -120,7 +120,7 @@ void clearHistory() {
 int main() {
     BrowserHistory browser;
     browser.visitPage("https://google.com");
-    browser.visitPage("https://openai.com");
+    browser.visitPage("https://leetcode.com");
     browser.visitPage("https://github.com");
     browser.back(); browser.back(); browser.forward();
     browser.visitPage("https://cplusplus.com");
