@@ -68,6 +68,24 @@ class BrowserHistory {
         }
     }
     
+    void removeCurrentPage() {
+        if (!current) return;
+    
+        if (current->prev)
+            current->prev->next = current->next;
+        else
+            head = current->next;
+    
+        if (current->next)
+            current->next->prev = current->prev;
+    
+        Node* toDelete = current;
+        current = current->next ? current->next : current->prev;
+    
+        delete toDelete;
+        cout << "Current page removed.\n";
+    }
+    
     int historySize() {
     int count = 0;
     Node* temp = head;
@@ -76,23 +94,6 @@ class BrowserHistory {
         temp = temp->next;
     }
     return count;
-}
-void removeCurrentPage() {
-    if (!current) return;
-
-    if (current->prev)
-        current->prev->next = current->next;
-    else
-        head = current->next;
-
-    if (current->next)
-        current->next->prev = current->prev;
-
-    Node* toDelete = current;
-    current = current->next ? current->next : current->prev;
-
-    delete toDelete;
-    cout << "Current page removed.\n";
 }
 
 void clearHistory() {
