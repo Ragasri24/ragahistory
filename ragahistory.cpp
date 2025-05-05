@@ -13,43 +13,43 @@ class Node {
 class BrowserHistory {
     private:
         Node* head;
-        Node* current;
+        Node* curr;
     public:
        
-    BrowserHistory() : head(nullptr), current(nullptr) {}
+    BrowserHistory() : head(nullptr), curr(nullptr) {}
 
     void visitPage(const string& url) {
-        while (current && current->next) {
-            Node* temp = current->next;
-            current->next = temp->next;
-            if (temp->next) temp->next->prev = current;
+        while (curr && curr->next) {
+            Node* temp = curr->next;
+            curr->next = temp->next;
+            if (temp->next) temp->next->prev = curr;
             delete temp;
         }
     
         Node* newNode = new Node(url);
-        if (current) {
-            current->next = newNode;
-            newNode->prev = current;
+        if (curr) {
+            curr->next = newNode;
+            newNode->prev = curr;
         } else {
             head = newNode;
         }
-        current = newNode;
+        curr = newNode;
     
         cout << "Visited: " << url << endl;
     }
     
     void back() {
-        if (current && current->prev) {
-            current = current->prev;
-            cout << "Went back to: " << current->url << endl;
+        if (curr && curr->prev) {
+            curr = curr->prev;
+            cout << "Went back to: " << curr->url << endl;
         } else {
             cout << "No previous page.\n";
         }
     }
     void forward() {
-        if (current && current->next) {
-            current = current->next;
-            cout << "Went forward to: " << current->url << endl;
+        if (curr && curr->next) {
+            curr = curr->next;
+            cout << "Went forward to: " << curr->url << endl;
         } else {
             cout << "No forward page.\n";
         }
@@ -59,7 +59,7 @@ class BrowserHistory {
         Node* temp = head;
         cout << "\nFull Browsing History:\n";
         while (temp) {
-            if (temp == current) {
+            if (temp == curr) {
                 cout << "-> " << temp->url << endl;
             } else {
                 cout << "   " << temp->url << endl;
@@ -69,18 +69,18 @@ class BrowserHistory {
     }
     
     void removeCurrentPage() {
-        if (!current) return;
+        if (!curr) return;
     
-        if (current->prev)
-            current->prev->next = current->next;
+        if (curr->prev)
+            curr->prev->next = curr->next;
         else
-            head = current->next;
+            head = curr->next;
     
-        if (current->next)
-            current->next->prev = current->prev;
+        if (curr->next)
+            curr->next->prev = curr->prev;
     
-        Node* toDelete = current;
-        current = current->next ? current->next : current->prev;
+        Node* toDelete = curr;
+        curr = curr->next ? curr->next : curr->prev;
     
         delete toDelete;
         cout << "Current page removed.\n";
@@ -104,7 +104,7 @@ void clearHistory() {
         delete toDelete;
     }
     head = nullptr;
-    current = nullptr;
+    curr = nullptr;
     cout << "Browsing history cleared.\n";
 }
 
